@@ -1,0 +1,28 @@
+<html>
+
+<head th:replace="fragments/head :: head('All Topics - Java Brains', 'Browse all available topics on Java Brains and start learning!')"></head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div th:replace="fragments/navbar :: nav('Home','/')"></div>
+		</div>
+		<div class="row heading-row">
+			<h3>Topics</h3>
+			<p>Browse available topics to start your learning journey.</p>
+		</div>
+		<div class="row">
+			<div th:each="topic : ${topics}">
+				<div th:replace="fragments/topic-tile :: tile"></div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer-scripts"></footer>
+</body>
+
+</html>

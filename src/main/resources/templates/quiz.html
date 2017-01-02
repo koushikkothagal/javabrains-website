@@ -1,0 +1,171 @@
+<html>
+
+<head th:replace="fragments/head :: head(${lesson.title} + ': ' + ${course.name} + ' - Java Brains', ${lesson.description})"></head>
+
+<body ng-app="javabrains">
+	<div th:class="'container-fluid  ' + ${course.topic.code}" style="margin: 0px;">
+		<div class="row">
+			<div
+				th:replace="fragments/navbar :: nav(${course.name},'/courses/' + ${course.code})"></div>
+		</div>
+		
+		<!-- Start nav icons -->
+		 <div class="container-fluid topic-bg" style="margin: -25px -15px 0 -15px">
+                <div id="lesson-nav" class="container">
+                    <div th:each="aLesson, iterStat : ${thisUnit.lessons}">
+                    <span th:if="${aLesson.permalinkName == lesson.permalinkName}" class="fa-stack" >
+                        <i class="fa fa-stack-2x fa-circle-thin" style="color: rgb(255, 255, 255);"></i>
+                        <a class="fa fa-stack-1x clickable fa-play-circle lesson-icon" 
+                        href="#" 
+                        th:attr="data-content=${aLesson.description},data-original-title=(${iterStat.index} + 1) + '. ' + ${aLesson.title} + ' (Now playing)'"
+                        data-content="Description" 
+                        data-original-title="Title" 
+                        data-trigger="hover" 
+                        data-placement="bottom" 
+                        type="button"></a>
+                     </span>
+
+                     <span th:if="${aLesson.permalinkName != lesson.permalinkName}"  class="fa-stack">
+                        <a class="fa fa-stack-2x clickable faded lesson-icon" 
+                        th:classappend="${evaluator.evaluateClass(completedLessons, aLesson)}"
+                        th:href="${'/courses/' + course.code + '/lessons/' + aLesson.permalinkName}"
+                        th:attr="data-content=${aLesson.description},data-original-title=(${iterStat.index} + 1) + '. ' + ${aLesson.title}"
+                        data-content="Description" 
+                        data-original-title="Title" 
+                        data-trigger="hover" 
+                        data-placement="bottom" 
+                        type="button"></a>
+                     </span>
+                     
+                     
+                     
+                     </div>
+                     
+                    
+                </div>
+            </div>
+            
+            
+            <!-- End nav icons -->
+            
+            <!--  Start info panel -->
+            <div class="container-fluid">
+                <div class="card" style="margin: 0 -20px 10px -20px;">
+                    <div class="container" style="padding: 10px 25px 5px;width:90%;">
+                        <div class="row head-row">
+                            <div class="col-md-8 border-right">
+                                <a th:if="${lesson.prev}" class="pull-left" style="margin-left: -70px" th:href="${lesson.prev}">
+					              <i class="fa fa-2x fa-arrow-left arrow"></i>
+					            </a>
+                                <h3><span class="slNo topic-color" th:text="${lesson.unitNo + '.' + lesson.slNo} " ></span> <span class="lesson-title" th:text="${lesson.title}" ></span></h3>
+                                <p th:text="${lesson.description}"></p>
+                            </div>
+                            <div class="col-md-4 hidden-xs padded">
+                            	<a th:if="${lesson.next}" class="pull-right" style="margin-right: -90px" th:href="${lesson.next}">
+                					<i class="fa fa-2x fa-arrow-right arrow"></i>
+              					</a>
+                                <div sec:authorize="!hasRole('ROLE_USER')">
+                                    <p>Your progress is not being saved.</p>
+                                    <p><a href="/signup" >Sign up</a> to save your place in this course, earn points and more!</p>
+                                </div>
+                                <div class="text-center" sec:authorize="hasRole('ROLE_USER')">
+                                	<h4 class="title">Your course score</h4>
+                                    <p class="lead" th:text="${pointsEarned + ' / ' + course.totalPoints}">70 / 100</p>
+                                    <progress value="97" max="100"
+                                    	th:attr="value=${pointsEarned},max=${course.totalPoints}"></progress>
+                                </div>
+                                
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  End info panel -->
+            
+            <!--  Start video section -->
+            <div ng-controller="QuizController as quiz">
+             	<quiz content="quiz.quizContent" next-permalink-name="quiz.next" course-code="javaee_jaxrs"
+             		th:attr="course-code=${course.code},next-permalink-name=${lesson.next}"></quiz>
+             </div>
+    		<!--  End video section -->
+           
+            
+            </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.9.0/lodash.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>            
+
+
+<style>
+body {
+	padding: 10px 0 0 0;
+}
+progress {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 90%;
+  height: 20px;
+  margin-top: -10px;
+
+  /* Firefox */
+  border: none;
+  background: #EEE;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+}
+
+progress::-webkit-progress-bar {
+  background: #EEE;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #CC0000;
+  border-radius: 3px;
+}
+
+progress::-moz-progress-bar {
+  background-color: #CC0000;
+  border-radius: 3px;
+}
+
+
+
+
+
+</style>
+<footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer-scripts"></footer>
+
+<script src="/assets/scripts/quiz.js"></script>
+ <script th:inline="javascript">
+ 
+    (function() {
+  'use strict';
+  
+  $(function () {
+	    $('.lesson-icon').popover();
+	});
+
+  
+  angular
+  .module('javabrains')
+  	.service('QuizData', function() {
+        this.data = JSON.parse(/*[[${lesson.quizContent}]]*/);   
+        this.lessonName = /*[[${lesson.permalinkName}]]*/;
+    });
+})();    
+        
+</script>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,136 @@
+<html>
+
+<head th:replace="fragments/head :: head(${course.name} + ' - Java Brains', ${course.desc})"></head>
+
+<body>
+		<style>
+	.lesson-video:before {
+		font-family: 'FontAwesome';
+    content: "\f144";
+    display: inline-block;
+    padding-right: 8px;
+    font-size: 20px;
+	
+	}
+	
+	.lesson-quiz:before {
+		font-family: 'FontAwesome';
+    content: "\f059";
+    display: inline-block;
+    padding-right: 8px;
+    font-size: 20px;
+	
+	}
+		.lesson-complete:before {
+		font-family: 'FontAwesome';
+    content: "\f058";
+    display: inline-block;
+    padding-right: 8px;
+    font-size: 20px;
+	
+	}
+	</style>
+	<div class="container-fluid" style="margin: 0px;">
+		<div class="row">
+			<div
+				th:replace="fragments/navbar :: nav(${course.topic.name} + ' Courses','/topics/' + ${course.topic.code})"></div>
+		</div>
+
+		<div th:class="'container-fluid  ' + ${course.topic.code}"
+			style="background-color: #FFF; margin: -30px -10px 0; padding: 50px 10px 20px">
+			<div class="container courseinfo-container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-5 course-image">
+						<img class="img-responsive" alt="Course Image"
+							th:src="${'/assets/images/' + course.code + '.jpg'}"
+							src="/assets/images/none.jpg">
+					</div>
+					<div class="col-xs-12 col-sm-7 course-details">
+						<h2 class="course-title" itemprop="title" th:text="${course.name}"></h2>
+
+						<h4 class="topic topic-color clickable">
+							<a
+								th:href="@{/topics/{topicCode}(topicCode=${course.topic.code})}"
+								class="topic topic-color clickable"
+								th:text="${course.topic.name}"></a>
+						</h4>
+						<p class="course-description" th:text="${course.desc}"></p>
+
+						<a th:if="${latestLesson == null and completedDate == null}"  id="start-course" class="btn-topic"
+							href="#" th:href="@{/courses/{courseCode}/lessons/{permalink}(courseCode=${course.code}, permalink=${course.units[0].lessons[0].permalinkName})}" >Start Course</a>
+
+						<a th:if="${latestLesson != null and completedDate == null}" id="start-course" class="btn-topic"
+							href="#" th:href="@{/courses/{courseCode}/lessons/{permalink}(courseCode=${course.code}, permalink=${latestLesson})}" >Resume Course</a>
+
+						<a th:if="${completedDate != null}" id="start-course" class="btn-topic"
+							href="#" th:href="@{/courses/{courseCode}/lessons/{permalink}(courseCode=${course.code}, permalink=${course.units[0].lessons[0].permalinkName})}" >Review Course</a>
+
+						<p class="course-description course-covers">This course covers:</p>
+						<ul class="list-square fa-ul">
+							<li th:each="objective : ${course.objectives}">
+							<i class="fa-li fa fa-check topic-color"></i>
+							<span th:text="${objective}"></span></li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:class="'container details-section ' + ${course.topicCode}" class="container details-section spring">
+        <div class="row">
+            <div class="col-md-9 unit-section">
+                <!-- start unit repeat -->
+                        <div class="unit-container" th:each="unit, iterStat : ${course.units}">
+                            <div class="media unit-tile card topic-bg">
+                                <div class="media-left unit-block">
+                                    <p class="unit-text text-center">UNIT</p>
+                                    <p class="unit-number text-center" th:text="'0' + (${iterStat.index} + 1)"></p>
+                                </div>
+                                <div class="media-body unit-body">
+                                    <h4 class="media-heading unit-heading" th:text="${unit.unitName}">Unit Name</h4>
+                                    <p class="unit-description" th:text="${unit.unitDescription}">
+                                        Unit Description
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- start lesson repeat -->
+
+                                    <a class="lesson-link"
+                                    th:href="@{/courses/{courseCode}/lessons/{lessonCode}(courseCode=${course.code},lessonCode=${lesson.permalinkName})}"
+                                    href="#" th:each="lesson : ${unit.lessons}">
+                                        <div class="toc-lesson">
+                                            <h5 class="lesson-name" th:with="isLessonComplete = ${completedLessons != null and completedLessons.contains(lesson.permalinkName)}">
+                                                <span th:class="${isLessonComplete}? 'topic-color lesson-complete' : 'lesson-' + ${lesson.type}"  th:text="${lesson.title}"></span>
+                                                <span class="pull-right" th:text="${lesson.durationText}"></span>
+                                        </h5></div>
+                                    </a>
+                                        <!-- end lesson repeat -->
+                        </div>
+                            <!-- end unit repeat -->
+            </div>
+            <div class="col-md-3">
+                <div class="padded">
+                    <h4>Downloads</h4>
+                    <hr>
+                    <div th:if="${course.sourceCode}"  class="media">
+                        <div class="media-left">
+                            <a th:href="@{{sourceCode}(sourceCode=${course.sourceCode})}" href="#"><span class="fa fa-3x fa-file-archive-o topic-color" aria-hidden="true"></span></a>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading">Project source code</h5>
+                            <p>.zip file</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</div>
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+	<footer th:replace="fragments/footer :: footer-scripts"></footer>
+	
+</body>
+
+</html>

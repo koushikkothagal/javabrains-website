@@ -1,0 +1,61 @@
+
+
+
+
+
+
+<html>
+
+<head th:replace="fragments/head :: head('Reset Password - Java Brains', 'Reset your Java Brains password')"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div
+				th:replace="fragments/navbar :: nav('Home','/')"></div>
+		</div>
+		<div class="container">
+			<div class="row heading-row">
+	            <h3>Reset your password</h3>
+	            <p>Choose a new password for your Java Brains account</p>
+	         </div>   
+	         <div class="row" style="margin-top:40px">
+	         
+                  <div class="col-xs-12 col-md-6 col-md-offset-1">
+                      <div class="well" style="padding: 25px">
+                          <form name="f" th:action="@{/reset}" th:object="${user}" method="post">
+						      <input type="hidden" th:field="*{token}" th:attr="value = ${resetPasswordToken}" class="form-control input-lg" id="token" name="token">
+                          	  <div class="form-group">
+                                  <label for="username" class="control-label">Enter your email again</label>
+                                  <input type="email" th:field="*{email}" class="form-control input-lg" id="username" name="username" value="" required="" title="Please enter your email" placeholder="example@email.com">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div class="form-group">
+				                <label class="control-label" for="password">Your new password</label>
+					            <input class="form-control input-lg" type="password" th:field="*{password}" placeholder="New Password" value=""  />
+					            </div>
+                              <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 20px;margin-top: 24px">Update Password</button>
+                              
+                          </form>
+                      </div>
+                  </div>
+                  
+              </div>
+        
+	            
+	            
+	            
+	        </div>
+        </div>
+		
+		
+
+
+	</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer-scripts"></footer>
+
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<html>
+
+<head th:replace="fragments/head :: head('Home - Java Brains', 'Java Brains Home')"></head>
+
+<body>
+
+	<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+#headerwrap {
+	background: url('https://javabrains.io/assets/images/banner.svg') no-repeat right top;
+	margin-top: 0px;
+	padding-top: 120px;
+	text-align: center;
+	background-attachment: relative;
+	background-position: right right;
+	min-height: 900px;
+	width: 100%;
+	-webkit-background-size: 120%;
+	-moz-background-size: 120%;
+	-o-background-size: 120%;
+	background-size: 120%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.home-signup-form *::-webkit-input-placeholder {
+	/* WebKit, Blink, Edge */
+	color: #FFF !important;
+}
+
+.home-signup-form *:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #FFF !important;
+	opacity: 0.8;
+}
+
+.home-signup-form *::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #FFF !important;
+	opacity: 0.8;
+}
+
+.home-signup-form *:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #FFF !important;
+}
+
+.main-thumbnails .caption {
+	margin-top: 30px;
+}
+
+.main-thumbnails p.lead {
+	font-size: 18px;
+	line-height: 30px;
+	color: #777;
+	padding: 0 10%;
+}
+</style>
+
+	<div class="container-fluid"
+		style="background-color: #4C8EB4; height: 802px; padding: 0; margin: 0">
+		<div style="position: relative; max-width: 1700px; margin: auto">
+
+			<div class="jumbotron"
+				style="position: absolute; top: 80px; left: 40px; background-color: rgba(76, 142, 180, 0.8); color: #FFF; padding-bottom: 2px">
+
+				<h1 style="font-size: 60px; margin-bottom: 40px">Java Brains</h1>
+				<p style="font-size: 25px;">
+					Learn Java and JavaScript through <br /> hundreds of training
+					videos and learning material
+				</p>
+
+
+				<p style="font-size: 25px; margin-top: 40px;">Create an account
+					for free</p>
+
+
+
+
+				<div class="home-signup-form">
+				<form name="f" th:action="@{/signup}" th:object="${user}" method="post">
+					<div th:if="${errorMessage}" class="login-form-main-message" role="alert" th:text="${errorMessage}"></div>	
+					<div class="login-group" style="background: transparent">
+						<div class="form-group">
+						
+				        <input class="form-control" type="email" th:field="*{email}" placeholder="Email" value=""  required
+				        	style="color: #FFF; background-color: #4C8EB4; border: none; border-radius: 0; border-bottom: 1px solid white; font-size: 17px;"/>
+						</div>
+						
+						<div class="form-group">
+						
+						<input class="form-control" type="password" th:field="*{password}" placeholder="Password" value=""  required
+							style="color: #FFF; background-color: #4C8EB4; border: none; border-radius: 0; border-bottom: 1px solid white; font-size: 17px;"/>
+					    </div>
+
+						<div class="form-group">
+						
+				        <input class="form-control" type="text" th:field="*{fullName}" placeholder="Full Name" value=""  required
+				        	style="color: #FFF; background-color: #4C8EB4; border: none; border-radius: 0; border-bottom: 1px solid white; font-size: 17px;"/>
+				        	
+				        </div>
+				        
+						<div class="form-group login-group-checkbox">
+							<input type="checkbox" class="" id="reg_agree" name="reg_agree"
+								required>
+							<label for="reg_agree" style="color: #FFF">I agree with
+								the <a style="color: #FFF; text-decoration: underline;"
+								href="/terms.html" target="_blank">terms</a>.
+							</label>
+						</div>
+						
+						<div class="form-actions">
+					                <button type="submit" class="btn btn-success btn-lg jb-btn"
+					                	style="color: #FFF; border-color: #FFF; font-size: 20px; background-color: rgba(76, 174, 80, 0.65);margin-top: 25px">Start Learning!</button>
+					            </div>
+						
+					</div>
+					</form>
+				</div>
+
+
+
+
+
+				
+				<p style="font-size: 15px; margin-top: 20px;">
+					<a href="/login" style="color: #FFF;">Already
+						have an account? Click here to login</a> <br />
+				</p>
+
+
+
+			</div>
+
+
+			<img src="https://javabrains.io/assets/images/banner.svg" class="pull-right"
+				alt="Responsive image">
+		</div>
+
+	</div>
+
+
+	<div class="container-fluid"
+		style="background-color: #FFF; padding: 60px 0 40px 0; margin: 0;">
+
+
+
+
+		<div class="container main-thumbnails text-center">
+			<h2>Start your learning journey</h2>
+			<p class="lead">Learn something new. Or dive deep into a topic
+				you are already familiar with.</p>
+			<p class="lead">&nbsp;</p>
+			<div class="row text-center">
+				<div class="col-sm-12 col-md-4">
+					<div class="">
+						<span class="fa-stack fa-4x" style="color: rgba(76, 174, 80, 0.7)">
+							<i class="fa fa-circle fa-stack-2x"></i> <i
+							class="fa fa-video-camera fa-stack-1x fa-inverse"></i>
+						</span>
+						<div class="caption">
+							<h3>Video training</h3>
+							<p class="lead">Watch it done! See hundreds of video
+								tutorials covering various programming topics.</p>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-4">
+					<div class="">
+						<span class="fa-stack fa-4x" style="color: rgba(221, 60, 67, 0.7)">
+							<i class="fa fa-circle fa-stack-2x"></i> <i
+							class="fa fa-map-signs fa-stack-1x fa-inverse"></i>
+						</span>
+						<div class="caption">
+							<h3>Follow along</h3>
+							<p class="lead">Step by step instructions to follow along as
+								you watch.</p>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-4">
+					<div class="">
+						<span class="fa-stack fa-4x"
+							style="color: rgba(41, 128, 185, 0.7)"> <i
+							class="fa fa-circle fa-stack-2x"></i> <i
+							class="fa fa fa-repeat fa-stack-1x fa-inverse"></i>
+						</span>
+						<div class="caption">
+							<h3>Test your knowledge</h3>
+							<p class="lead">Take tests and answer quizzes to test your
+								understanding of the topics covered.</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+	</div>
+
+
+	<div class="container-fluid" style="padding: 60px 0 40px 0; margin: 0;">
+		<div class="container main-thumbnails text-center">
+			<h2>Explore</h2>
+			<p class="lead">Browse by topic or view available courses</p>
+			<p class="lead">&nbsp;</p>
+			<div class="row text-left" style="margin-bottom: 20px">
+				<div class="col-sm-12">
+					<a href="/topics" class="jb-btn pull-right">All topics</a>
+					<h3>Popular Topics</h3>
+				</div>
+			</div>
+			<div class="row text-left">
+				<div class="col-sm-12">
+					<!-- Start Loop -->
+					<div th:each="topic : ${topTopics}">
+        				<div class="col-md-4"  th:replace="fragments/topic-tile :: tile"></div>
+        			</div>
+					<!-- End Loop -->
+				</div>
+			</div>
+
+			<div class="row text-left" style="margin-bottom: 20px">
+				<div class="col-sm-12">
+					<a href="/courses" class="jb-btn pull-right">All courses</a>
+					<h3>Popular Courses</h3>
+				</div>
+			</div>
+			<div class="row text-left">
+
+				<!-- Start Loop -->
+
+				<div th:each="course : ${topCourses}">
+					<div th:replace="fragments/course-tile :: tile"></div>
+				</div>
+
+
+
+
+
+				<!-- End Loop -->
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+	<footer th:replace="fragments/footer :: footer-scripts"></footer>
+</body>
+
+</html>

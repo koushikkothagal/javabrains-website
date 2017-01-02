@@ -1,0 +1,119 @@
+<div class="container">
+    <!-- Start quiz area -->
+    <div ng-if="!ctrl.quizSubmitted" class="quiz card flex-column">
+        <ol class="question-tabs flex-row flex-row-md">
+            <li class="quiz-tab col-grow-shrink flex-center" ng-repeat="q in ctrl.quiz.questions" id="quiz-question-tab-{{$index+1}}"
+            ng-class="{'active' : (ctrl.activeQuestionIndex === $index),
+                'correct': ctrl.isAnswerCorrect(q),
+                'incorrect': ctrl.isAnswerIncorrect(q),}" ng-click="ctrl.activateQuestion($index)">
+                <span class="question-number-text">{{ $index + 1 }}</span>
+                <svg class="correct-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                </svg>
+                <svg class="incorrect-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+            </li>
+        </ol>
+
+        <div class="quiz-tabs">
+
+            <div class="quiz-question-text-list">
+                <p class="question-count topic-color">Question {{ctrl.activeQuestionIndex + 1}} of {{::ctrl.quiz.questions.length}} </p>
+                <h3 class="quiz-question-text card-text" ng-repeat="question in ctrl.quiz.questions" ng-bind-html="::question.question | trust_html"
+                translate-x="(-(ctrl.activeQuestionIndex * 100)) + '%'">
+                  
+            </h3>
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- Start answer area -->
+        <div class="quiz-question-list separator-left">
+
+            <div ng-repeat="question in ctrl.quiz.questions" class="quiz-question" translate-x="(-(ctrl.activeQuestionIndex * 100)) + '%'"
+            ng-init="outer = $index; first = $first; last = $last;">
+
+                <div class="answerstatus-area" style="min-height: 40px;">
+                    <div class="answer correct" ng-show="ctrl.isAnswerCorrect(question)">
+                        <strong class="quiz-correct-title" ng-bind="::ctrl.correctAnswerText"></strong>
+                        <!--   <div class="quiz-correct-description" ng-bind="::question.correctAnswerDescription"></div> -->
+                    </div>
+                    <div class="answer incorrect" ng-show="ctrl.isAnswerIncorrect(question)">
+                        <strong class="quiz-incorrect-title" ng-bind="::ctrl.incorrectAnswerText"></strong>
+                        <!--	<div class="quiz-incorrect-description" ng-bind="::question.incorrectAnswerDescription"></div> -->
+                    </div>
+                    <div class="answer" ng-show="!ctrl.userData.quizAnswers[question.id]">
+                        <strong ng-if="ctrl.activeQuestion.type !== 'code'" class="quiz-choose-title">Choose the right answer:</strong>
+                        <strong ng-if="ctrl.activeQuestion.type === 'code'" class="quiz-choose-title">Fill the blank with the right answer:</strong>
+                        <!--	<div class="quiz-incorrect-description" ng-bind="::question.incorrectAnswerDescription"></div> -->
+                    </div>
+                </div>
+
+                <div ng-if="question.type !== 'code'" ng-repeat="answer in question.answers" class="answer-option">
+                    <input class="combo" id="q{{::outer}}a{{::$index}}" type="radio" ng-model="ctrl.userData.quizAnswers[question.id]" ng-disabled="ctrl.userData.quizAnswers[question.id]"
+                    value="{{$index}}">
+                    <label class="combo" for="q{{::outer}}a{{::$index}}" ng-bind-html="::answer.content | trust_html" style="max-width: 16px;"></label>
+                    <!-- <div ng-bind-html= "ctrl.test | trust_html"></div> -->
+
+                </div>
+
+                <div ng-if="question.type === 'code'" class="quiz-question-list separator-left">
+                    <div code-quiz code="question.code" on-change="ctrl.changed(value)"></div>
+                </div>
+
+
+
+                <div class="quiz-nav text-right">
+                    <!-- <a ng-if="!first" class="jb-btn" href="#" ng-click="ctrl.activateQuestion(outer - 1)">
+                    <i class="fa fa-chevron-left"></i>
+                 </a>
+                -->
+                    <a ng-if="!last" class="btn btn-topic" href="#" ng-click="ctrl.activateQuestion(outer + 1)">
+                    Next question &nbsp; <i class="fa fa-arrow-right"></i>
+
+                </a>
+
+                    <a ng-if="last" class="btn btn-topic" href="#" ng-click="ctrl.submit()">
+                    Submit &nbsp; <i class="fa fa-paper-plane"></i>
+                
+
+
+                </a>
+                </div>
+            </div>
+        </div>
+        <!-- End answer area -->
+    </div>
+    <!-- End quiz area -->
+    <div ng-if="ctrl.quizSubmitted" class="quiz card flex-column padded">
+        <div class="padded">
+            <h1 ng-if="!ctrl.quizComplete" class="padded topic-color">Uh oh!</h1>
+            <h3 ng-if="!ctrl.quizComplete" class="padded">You didn't get enough questions right. Try again later!</h3>
+            <h1 ng-if="ctrl.quizComplete" class="padded topic-color">Awesome work!</h1>
+            <h3 ng-if="ctrl.quizComplete" class="padded">You've cleared it in style. Good job!</h3>
+            <div class="row text-center">
+                <!--
+        <div class="points" style="border: 1px solid gray; border-radius: 200px; height: 200px; width: 200px; margin: auto;">
+            <div class="progress-text" style="margin-top: 60px; font-size: 6rem;"><sup>{{::ctrl.totalCorrectAnswers}}</sup>/<sub>{{::ctrl.quiz.questions.length}}</sub>​</div>
+        </div>
+        -->
+                <div class="acore-wrapper text-center">
+
+                    <div max="ctrl.quiz.questions.length" current="ctrl.totalCorrectAnswers" color="#000"
+                    bgcolor="#eaeaea" semi="false" rounded="false" clockwise="true" responsive="false" duration="800" animation="easeInOutQuart"
+                    radius="140" stroke="6"></div>
+                    <div class="progress-text" style="font-size: 90px;margin-top: 50px;border: 1px solid gray"><sup>{{ctrl.totalCorrectAnswers}}</sup>/<sub>{{ctrl.quiz.questions.length}}</sub>​</div>
+                </div>
+
+            </div>
+            <a class="btn btn-topic pull-right" style="max-width: 200px; margin: 70px auto" ng-show="ctrl.nextPermalinkName" ng-href="{{ctrl.nextPermalinkName}}">Next lesson &nbsp; <i class="fa fa-arrow-right"></i></a>
+            <p style="margin-top: 50px;">&nbsp;</p> <!-- Temporary para tag to add space at the bottom for when nextPermalinkName is empty and the above button doesn't show up -->'
+        </div>
+    </div>
+
+</div>

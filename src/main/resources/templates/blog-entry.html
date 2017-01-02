@@ -1,0 +1,54 @@
+<html>
+
+<head th:replace="fragments/head :: head(${blogEntry.title}, ${blogEntry.description})"></head>
+
+
+
+<body style="background-color: #FFF">
+
+<style>
+.post-entry {
+	margin-bottom: 45px;
+}
+
+.post-description {
+	margin-bottom: 10px;
+}
+.post-meta {
+	font-size: 12px;
+	color: #999;
+}
+
+
+
+</style>
+	<div class="container">
+		<div class="row">
+			<div th:replace="fragments/navbar :: nav('Java Brains Blog','/blog')"></div>
+		</div>
+		
+		</div>
+		
+		<div class="container" style="max-width: 900px;margin-top: 30px">
+		<div class="row text-center">
+			<div class="post-entry">
+				<h1 th:text="${blogEntry.title}">Title</h1>
+				<p class="post-description"><i th:text="${blogEntry.description}"></i></p>
+				<p class="post-meta">
+				<span>Koushik Kothagal</span>&nbsp;/&nbsp;<span th:text="${#dates.format(blogEntry.createdAt, 'MMMM d yyyy')}"></span>
+				</p>
+			</div>
+		</div>
+			<div class="row">
+				<div th:utext="${blogEntry.content}"></div>  
+			</div>
+		
+		
+	</div>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer-scripts"></footer>
+</body>
+
+</html>

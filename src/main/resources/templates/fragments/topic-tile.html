@@ -1,0 +1,19 @@
+<div class="col-md-4" th:fragment="tile">
+
+						<div th:class="'panel panel-default topic-tile card ' + ${topic.code}" class="panel panel-default topic-tile card clickable spring">
+							<div class="panel-heading topic-bg">
+								<p class="side-heading pull-right" th:if="${topic.courses} > 1" th:text="${topic.courses} + ' courses'">3 courses</p>
+								<p class="side-heading pull-right" th:if="${topic.courses} == 1" th:text="${topic.courses} + ' course'">1 course</p>
+								<h1 class="panel-title">
+									<i class="fa fa-th-large"></i>Topic
+								</h1>
+							</div>
+							<div class="panel-body">
+								<a th:href="@{/topics/{topicCode}(topicCode=${topic.code})}"><h4 class="title topic-title" th:text="${topic.name}">Spring Framework</h4></a>
+								<p class="desc topic-desc" th:text="${topic.desc}">Learn about one of the most
+									popular application frameworks in Java today.</p>
+								<a id="view-courses" href="/topics/spring" th:href="@{/topics/{topicCode}(topicCode=${topic.code})}" class="jb-btn">View
+									Courses</a>
+							</div>
+						</div>
+					</div>

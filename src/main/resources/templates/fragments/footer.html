@@ -1,0 +1,62 @@
+<footer class="footer-distributed" th:fragment="footer">
+	<div class="footer-left">
+		<h3>Java Brains</h3>
+		<p class="footer-links">
+			<a href="/">Home</a> · <a href="/topics">Topics</a> · <a
+				href="/courses">Courses</a> · <a
+				sec:authorize="!hasRole('ROLE_USER')" href="/login">Login</a> <span
+				sec:authorize="!hasRole('ROLE_USER')"> / </span> <a
+				sec:authorize="!hasRole('ROLE_USER')" href="/signup">Sign Up</a>
+		</p>
+		<p class="footer-company-name">Java Brains is the work of Koushik
+			Kothagal.</p>
+		<div class="footer-icons">
+			<a target="_blank" href="http://www.linkedin.com/in/koushiksrinivas"><i
+				class="fa fa-linkedin"></i></a> <a target="_blank"
+				href="http://www.youtube.com/koushks"><i class="fa fa-youtube"></i></a>
+			<a target="_blank" href="https://www.facebook.com/javabrains"><i
+				class="fa fa-facebook"></i></a> <a target="_blank"
+				href="https://twitter.com/Java_Brains"><i class="fa fa-twitter"></i></a>
+			<a target="_blank"
+				href="https://plus.google.com/101241060481722039118/posts"><i
+				class="fa fa-google-plus"></i></a> <a target="_blank"
+				href="https://github.com/koushikkothagal"><i
+				class="fa fa-github"></i></a>
+		</div>
+		<a
+			href="http://www.beyondsecurity.com/vulnerability-scanner-verification/javabrains.io"><img
+			src="https://seal.beyondsecurity.com/verification-images/javabrains.io/vulnerability-scanner-2.gif"
+			alt="Website Security Test" border="0" /></a>
+	</div>
+	<div class="footer-right">
+		<div id="cu-form">
+			<p>Contact</p>
+			<div class="form-box">
+				<input type="text" id="cu-email" name="email" placeholder="Email">
+				<textarea id="cu-message" name="message" placeholder="Message"></textarea>
+				<button id="contact">Send</button>
+			</div>
+		</div>
+	</div>
+	<script>
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script',
+			'https://www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'UA-52497694-3', 'auto');
+	ga('send', 'pageview');
+	</script>
+</footer>
+
+
+<section th:fragment="footer-scripts">
+	<script src="/assets/scripts/app.min.js"></script>
+</section>

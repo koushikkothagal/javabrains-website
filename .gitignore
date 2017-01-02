@@ -1,0 +1,6 @@
+.mvn/
+.vscode/
+.settings/
+target/
+src/main/resources/application.properties
+src/main/resources/auth0.properties

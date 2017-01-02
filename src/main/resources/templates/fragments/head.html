@@ -1,0 +1,55 @@
+<head th:fragment="head(pageTitle, pageDescription)">
+<title th:text="${pageTitle}"></title>
+<meta name="description" th:attr="content=${pageDescription}">
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon image_src" href="/assets/apple-touch-icon.png"></link>
+<meta name="twitter:card" content="summary"></meta>
+<meta name="twitter:domain" content="javabrains.io"></meta>
+<meta property="og:type" content="website"></meta>
+<meta property="og:image" itemprop="image primaryImageOfPage" content="/assets/apple-touch-icon.png"></meta>
+<meta name="twitter:title" property="og:title" itemprop="title name" th:attr="content=${pageTitle}"></meta>
+<meta name="twitter:description" property="og:description" itemprop="description" th:attr="content=${pageDescription}" />
+<meta property="og:url" th:attr="content=${#httpServletRequest.requestURI}"></meta>
+<link rel="canonical" th:href="${#httpServletRequest.requestURI}"></link>
+<meta name="twitter:app:country" content="US"></meta>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css"></link>
+<link rel="stylesheet" href="https://parsetest.firebaseapp.com/app.css"></link>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
+<link href='//fonts.googleapis.com/css?family=Nunito:400,300,700|Varela+Round' rel='stylesheet' type='text/css'>
+<style>
+body {
+	padding: 10px 0 0 0;
+}
+.dropdown-toggle {
+	height: 46px !important;
+}
+
+.logout-btn {
+	background-color: #FFF;
+	font-size: 1.5rem;
+}
+
+.lesson-icon {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.lesson-icon:hover {
+	color: #FFF;
+	text-decoration: none;
+	opacity: 1;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	/* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */
+	#profile-dropdown {
+		margin-top: 8px;
+	}
+}
+</style>
+</head>

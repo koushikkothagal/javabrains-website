@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet" />
+    
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+    
+</head>
+<body>
+<div class="container">
+    <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            var error = /*[[${error}]]*/;
+            if (error) {
+                // $.growl.error({message: "Please log in"});
+            } else {
+                // $.growl({title: "Welcome!", message: "Please log in"});
+            }
+        });
+        $(function () {
+        	var clientId = /*[[${clientId}]]*/;
+        	var clientDomain = /*[[${clientDomain}]]*/;
+            var lock = new Auth0Lock(clientId, clientDomain, {
+                auth: {
+                    redirectUrl: /*[[${loginCallback}]]*/,
+                    responseType: 'code',
+                    params: {
+                        state: /*[[${state}]]*/,
+                        // Learn about scopes: https://auth0.com/docs/scopes
+                        scope: 'openid roles user_id name nickname email picture'
+                    }
+                }
+            });
+            setTimeout(function () {
+                lock.show();
+            }, 1500);
+        });
+    </script>
+</div>
+</body>
+</html>

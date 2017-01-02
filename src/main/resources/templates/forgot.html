@@ -1,0 +1,63 @@
+<html>
+
+<head th:replace="fragments/head :: head('Forgot password - Java Brains', 'Forgot your password')"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div
+				th:replace="fragments/navbar :: nav('Home','/')"></div>
+		</div>
+		<div class="container">
+			<div class="row heading-row">
+	            <h3>Forgot your password?</h3>
+	            <p>Enter your email address</p>
+	         </div>   
+	         <div class="row" style="margin-top:40px">
+	         
+                  <div class="col-xs-12 col-md-6 col-md-offset-1">
+                      <div class="well" style="padding: 25px">
+                          <form name="f" th:action="@{/forgot}" th:object="${user}" method="post">
+                          	  <div class="form-group">
+                                  <label for="username" class="control-label">Email</label>
+                                  <input type="email" th:field="*{email}" class="form-control input-lg" id="username" name="username" value="" required="" title="Please enter your email" placeholder="example@email.com">
+                                  <span class="help-block"></span>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 20px;margin-top: 24px">Password reset</button>
+                              
+                          </form>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-3">
+                      <p class="lead">Sign up now for <span class="text-success">FREE</span></p>
+                      <ul class="list-unstyled" style="line-height: 3">
+                          <li><span class="fa fa-check text-success"></span> &nbsp; Track your courses</li>
+                          <li><span class="fa fa-check text-success"></span> &nbsp; Get points on your progress</li>
+                          <li><span class="fa fa-check text-success"></span> &nbsp; Save your favorites</li>
+                          <li><span class="fa fa-check text-success"></span> &nbsp; Get new course alerts</li>
+                          
+                      </ul>
+                      <p><a href="/signup" class="btn btn-info btn-lg btn-block">Sign up!</a></p>
+                  </div>
+              </div>
+        
+	            
+	            
+	            
+	        </div>
+        </div>
+		
+		
+
+
+	</div>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer-scripts"></footer>
+</body>
+
+</html>
+
+
+

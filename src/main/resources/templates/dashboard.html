@@ -1,0 +1,116 @@
+<html>
+
+<head th:replace="fragments/head :: head('Dashboard - Java Brains', 'Your Java Brains dashboard')"></head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div th:replace="fragments/navbar :: nav('All Topics','/topics')"></div>
+		</div>
+		<div th:if="${globalMessage}" class="alert alert-success" role="alert" th:text="${globalMessage}">Wrong email or password! Please try again.</div>
+		<div class="panel panel-default card-no-shadow greet-panel"
+			th:classappend="${topicCode}">
+			
+			
+			<div th:if="${latestCourse == null}" class="panel-body">
+				<h3 class="ng-binding">
+					Welcome, <span
+						th:text="${#authentication.principal.fullName.split(' ')[0]}"></span>!
+				</h3>
+				<p>
+					Thank you for registering with Java Brains. You can now save your progress in courses and earn points to track how you are doing!
+				</p>
+				<p>Below are some courses for you to start working on. Enjoy learning!</p>
+			</div>
+			
+			
+			
+			
+			
+			<div th:if="${latestCourse != null}" class="panel-body">
+				<h3 class="ng-binding">
+					Welcome back, <span
+						th:text="${#authentication.principal.fullName.split(' ')[0]}"></span>!
+				</h3>
+				<p>
+					It's time to continue where you left off. Here are the next few lessons in the course 
+					<a th:text="${latestCourse.name}"
+						th:href="${'/courses/' + latestCourse.code}"
+						href="/courses/corejs_scopesclosures" class="topic-color">Scopes
+						and Closures In-depth</a>.
+				</p>
+				<p>Go ahead, resume the course and jump right back in!</p>
+			</div>
+			
+			
+			
+			
+			<div th:if="${latestCourse != null}"
+				class="recent-unit-header topic-bg">
+				<a href="#"
+					th:href="${'/courses/' + latestCourse.code + '/lessons/' + latestLesson.permalinkName}"
+					class="pull-right">Resume Course</a>
+				<h4>
+					<span>Unit</span> <span class="ng-binding"
+						th:text="${latestUnitNumber}"></span> <span>-</span>
+					<span th:text="${latestUnit.unitName}">JAX-RS Extensions</span>
+				</h4>
+				
+				
+				
+				
+			</div>
+			<!-- start lesson repeat -->
+                            
+                                    <a class="lesson-link"
+                                    th:href="@{/courses/{courseCode}/lessons/{lessonCode}(courseCode=${latestCourse.code},lessonCode=${lesson.permalinkName})}" 
+                                    href="<%= thisLesson.path %>" th:each="lesson : ${remainingLessons}">
+                                        <div class="toc-lesson">
+                                            <h5 class="lesson-name">
+                                                <i th:if="${completedLessons != null and completedLessons.contains(lesson.permalinkName)}" class="fa fa-check-circle topic-color" th:text="${lesson.setType('complete')}"></i>
+                                                
+                                                <i th:if="${lesson.type == 'video'}" class="fa fa-play-circle"></i>
+                                                
+                                                <i th:if="${lesson.type == 'quiz'}"  class="fa fa-question-circle"></i>
+                                                
+                                            
+                                              	<span th:text="${lesson.title}"></span>
+                                                <span class="pull-right" th:text="${lesson.durationText}"></span>
+                                                
+                                        </h5></div>
+                                    </a>
+                                    
+                                        <!-- end lesson repeat -->
+		</div>
+
+			<div class="row text-left" style="margin-bottom: 20px">
+				<div class="col-sm-12">
+					<a href="/courses" class="jb-btn pull-right">All courses</a>
+					<h3 th:if="${latestCourse != null}" >Your Courses</h3>
+					<h3 th:if="${latestCourse == null}" >Top Courses</h3>
+				</div>
+			</div>
+			<div class="row text-left">
+
+				<!-- Start Loop -->
+
+				<div th:each="course : ${courses}">
+					<div th:replace="fragments/course-tile :: tile"></div>
+				</div>
+
+
+
+
+
+				<!-- End Loop -->
+
+			</div>
+
+
+	</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer-scripts"></footer>
+</body>
+
+</html>

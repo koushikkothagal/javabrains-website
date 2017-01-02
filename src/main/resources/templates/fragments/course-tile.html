@@ -1,0 +1,37 @@
+<div class="col-sm-12" th:fragment="tile">
+
+					<div th:class="'panel panel-default course-tile card ' + ${course.topicCode}">
+						<div class="panel-heading topic-bg">
+							<h1 class="panel-title">
+								<i class="fa fa-book"></i>Course 
+								
+								<span class="pull-right" th:text="${course.durationText}"></span>
+								<i class="pull-right fa fa-clock-o"></i>
+							</h1>
+						</div>
+						<div class="panel-body" href="#" th:href="@{/courses/{courseCode}(courseCode=${course.code})}">
+							<div class="media">
+								<div class="media-left course-thumbnail">
+									<a href="#" th:href="@{/courses/{courseCode}(courseCode=${course.code})}"> 
+									<img class="media-object"
+										width="280px" alt="..."
+										th:attr="src=${course.img},title=${course.name},alt=${course.name}">
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#" th:href="@{/courses/{courseCode}(courseCode=${course.code})}">
+										<h4 class="title course-title" th:text="${course.name}"></h4>
+									</a> <a href="#" th:href="@{/topics/{topicCode}(topicCode=${course.topicCode})}"><h5 class="topic topic-color"
+											th:text="${course.topic.name}"></h5></a>
+									<p class="tile-description" th:text="${course.desc}"></p>
+									<div class="labels">
+
+										<span th:each="tag : ${course.tags}" class="label label-default" style="margin: 3px; padding: 5px" th:text="${tag}">Java</span> 
+										
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>

@@ -1,0 +1,47 @@
+
+<nav th:fragment="nav(prevName, prevUrl)" id="navbar" class="navbar navbar-fixed-top card">
+    <div class="container" style="height:100%">
+        <div class="navbar-header">
+            
+                        <a class="navbar-brand bold-text" href="/" th:href="@{{url}(url=${prevUrl})}">
+                            <i class="fa fa-arrow-left"></i>
+                            <span th:text="${prevName}">Home</span>
+                            
+                        </a>
+                        
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li><a href="/topics">Topics</a></li>	
+                <li><a href="/courses">Courses</a></li>
+                
+                <li sec:authorize="!hasRole('ROLE_USER')"><a href="/login">Log in</a></li>
+                <li sec:authorize="!hasRole('ROLE_USER')" id="sign-up" class=""><a href="/signup" class="shadow bold-text clickable">Sign up</a></li>
+                <li sec:authorize="hasRole('ROLE_USER')" id="profile-dropdown" class="dropdown">
+                	<div class="btn-group dropdown">
+                		<button href="/profile" id="profile-button" type="button" class="btn btn-default" ui-sref="profile">
+                		<i class="fa fa-user"></i> 
+                		<span th:text="${#authentication.principal.fullName}">name</span>
+                		<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                		<ul class="dropdown-menu" role="menu">
+                			<li role="menuitem"><a href="/profile">Your Profile</a></li>
+                			<li class="divider"></li>
+                			<li role="menuitem">
+                			<form class="navbar-form" th:action="@{/logout}" method="post">
+                      			<input class="btn logout-btn" type="submit" value="Log out" />
+                			</form>
+                			</li>
+                		</ul>
+                	</div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    
+    
+    
+    
+</nav>
